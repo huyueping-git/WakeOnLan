@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="GMSP WOL Proxy"
+           Manufacturer="GMSP"
+           Version="1.0.0.0"
+           UpgradeCode="A7C3E91B-4D52-4F8A-9B21-6E0F8C2D4A11"
+           Scope="perMachine"
+           Language="2052">
+    <SummaryInformation Description="LAN Wake-on-LAN Proxy Client" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of GMSP WOL Proxy is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+
+    <Feature Id="ProductFeature" Title="GMSP WOL Proxy" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLFOLDER" Name="WakeOnLanClient" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="GMSP WOL Proxy" />
+    </StandardDirectory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="B1C2D3E4-F5A6-7890-ABCD-EF1234567891">
+        <File Id="WakeOnLanClientExe"
+              Source="$(var.WakeOnLanClient.TargetDir)WakeOnLanClient.exe"
+              KeyPath="yes"
+              Checksum="yes" />
+      </Component>
+      <Component Id="AppConfig" Guid="B1C2D3E4-F5A6-7890-ABCD-EF1234567892">
+        <File Id="WakeOnLanClientConfig"
+              Source="$(var.WakeOnLanClient.TargetDir)WakeOnLanClient.exe.config"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="NewtonsoftJson" Guid="B1C2D3E4-F5A6-7890-ABCD-EF1234567893">
+        <File Id="NewtonsoftJsonDll"
+              Source="$(var.WakeOnLanClient.TargetDir)Newtonsoft.Json.dll"
+              KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <Component Id="ApplicationShortcut" Directory="ApplicationProgramsFolder" Guid="B1C2D3E4-F5A6-7890-ABCD-EF1234567894">
+      <Shortcut Id="ApplicationStartMenuShortcut"
+                Name="GMSP WOL Proxy"
+                Description="LAN Wake-on-LAN Proxy Client"
+                Target="[!WakeOnLanClientExe]"
+                WorkingDirectory="INSTALLFOLDER" />
+      <RemoveFolder Id="CleanApplicationProgramsFolder" On="uninstall" />
+      <RegistryValue Root="HKCU"
+                     Key="Software\GMSP\WakeOnLanClient"
+                     Name="installed"
+                     Type="integer"
+                     Value="1"
+                     KeyPath="yes" />
+    </Component>
+  </Package>
+</Wix>

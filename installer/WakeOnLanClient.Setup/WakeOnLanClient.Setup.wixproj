@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="WixToolset.Sdk/5.0.2">
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <OutputName>WakeOnLanClient</OutputName>
+    <Platforms>x86</Platforms>
+    <InstallerPlatform>x86</InstallerPlatform>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Package.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\WakeOnLanClient\WakeOnLanClient.csproj">
+      <Name>WakeOnLanClient</Name>
+      <AdditionalProperties>Platform=AnyCPU</AdditionalProperties>
+      <SetPlatform>Platform=AnyCPU</SetPlatform>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

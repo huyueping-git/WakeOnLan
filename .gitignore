@@ -1,0 +1,24 @@
+## Build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.msi
+*.wixpdb
+*.wixobj
+
+## NuGet
+packages/
+tools/nuget.exe
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## IDE
+.vs/
+*.swp
+*~
